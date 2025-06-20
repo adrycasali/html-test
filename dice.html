@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('rollButton').addEventListener('click', function() {
+            const diceRoll = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('result').textContent = `You rolled a ${diceRoll}`;
+        });
+    </script>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            color: #ffffff;
+            text-align: center;
+            margin-top: 100px;
+            background-color: rgba(0, 0, 0, 0.943);
+        }
+        #rollButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            color: rgb(117, 16, 16);
+            background-color: #ffffff;
+            border-radius: 5px
+        }
+        #DiceImage {
+            width: 150px;
+            height: 150px;
+            margin-top: 30px;
+            transition: 1s ease-in-out;
+        }
+        .rolling {
+            animation: roll 1s ease;
+        }
+         @keyframes roll {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(90deg); }
+      50% { transform: rotate(180deg); }
+      75% { transform: rotate(270deg); }
+      100% { transform: rotate(360deg); }
+         }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #4e9b25;
+        }
+    </style>
+</body>
+<h1>Dice Roller</h1>
+  <img id="diceImage" src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Alea_1.png" alt="Dice">
+  <div>
+    <button id="rollButton">Roll Dice</button>
+  </div>
+  <div id="result"></div>
+
+  <script>
+    const diceImages = {
+      1: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Alea_1.png',
+      2: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Alea_2.png',
+      3: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Alea_3.png',
+      4: 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Alea_4.png',
+      5: 'https://upload.wikimedia.org/wikipedia/commons/5/55/Alea_5.png',
+      6: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/Alea_6.png'
+    };
+
+ const rollButton = document.getElementById('rollButton');
+    const diceImage = document.getElementById('diceImage');
+    const resultDiv = document.getElementById('result');
+
+    rollButton.addEventListener('click', () => {
+     diceImage.classList.add('rolling');
+     resultDiv.textContent = 'Rolling...';
+      const finalRoll = Math.floor(Math.random() * 6) + 1;
+      let counter = 0
+
+     const interval = setInterval(() => {
+        const tempRoll = Math.floor(Math.random() * 6) + 1;
+        diceImage.src = diceImages[tempRoll];
+     counter++;
+        if (counter >= 10) {
+          clearInterval(interval);
+          diceImage.src = diceImages[finalRoll]; 
+          resultDiv.textContent = `You rolled a ${finalRoll}`;
+          diceImage.classList.remove('rolling');
+        }
+      }, 100);      
+    });
+ </script>
+</body>
+</html>
